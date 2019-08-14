@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <h5mag_shopapi translate="label">
+            <label>H5mag configuration</label>
+            <sort_order>150</sort_order>
+        </h5mag_shopapi>
+    </tabs>
+    <sections>
+        <h5mag_shopapi_magazine translate="label" module="adminhtml">
+            <label>Magazine</label>
+            <tab>h5mag_shopapi</tab>
+            <sort_order>10</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label comment">
+                    <label>General</label>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment></comment>
+                    <fields>
+                        <url translate="label comment">
+                            <label>URL</label>
+                            <comment>The URL of the H5mag magazine</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </url>
+                    </fields>
+                </general>
+            </groups>
+        </h5mag_shopapi_magazine>
+        <h5mag_shopapi_developer translate="label" module="adminhtml">
+            <label>Developer</label>
+            <tab>h5mag_shopapi</tab>
+            <sort_order>10</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label comment">
+                    <label>General</label>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment></comment>
+                    <fields>
+                        <model translate="label comment">
+                            <label>Model</label>
+                            <comment><![CDATA[The Model used to fetch products.<br />If none is specified then the Generic model will be used.]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </model>
+                    </fields>
+                </general>
+            </groups>
+        </h5mag_shopapi_developer>
+    </sections>
+</config>

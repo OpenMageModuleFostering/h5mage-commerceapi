@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <h5mag_shopapi_magazine>
+                                        <title>Magazine</title> <!-- Used in resources tree -->
+                                    </h5mag_shopapi_magazine>
+                                    <h5mag_shopapi_developer>
+                                        <title>Developer</title> <!-- Used in resources tree -->
+                                    </h5mag_shopapi_developer>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

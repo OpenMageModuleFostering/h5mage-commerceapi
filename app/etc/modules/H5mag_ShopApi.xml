@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <H5mag_ShopApi>
+            <active>true</active>
+            <codePool>community</codePool>
+        </H5mag_ShopApi>
+    </modules>
+</config>

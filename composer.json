@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/h5mage-commerceapi",
+    "type": "magento-module",
+    "license": "Open-Software-License-(OSL-3.0)",
+    "homepage": "",
+    "description": "Connect your store with H5mag",
+    "authors": [
+    {
+        "name": "H5mag",
+        "email": "info@h5mag.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

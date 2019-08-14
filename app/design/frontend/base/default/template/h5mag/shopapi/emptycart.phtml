@@ -1,0 +1,6 @@
+<?php $url = Mage::getSingleton('core/session')->getH5magShopApiCartUrl();?>
+<?php error_log($url);?>
+<?php if (!empty($url)) :?>
+<iframe src="<?php echo $url?>" width="1" height="1" scrolling="no" frameborder="0" border="0"></iframe>
+<?php Mage::getSingleton('core/session')->unsH5magShopApiCartUrl() ?>
+<?php endif;?>
