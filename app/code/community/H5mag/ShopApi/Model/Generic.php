@@ -153,7 +153,30 @@ class H5mag_ShopApi_Model_Generic extends H5mag_ShopApi_Model_Product {
 			}
 		}
 	}
-	
+	/**
+	* Get the JSON representation of this product
+	*
+	* @return string json encoded string
+	*/
+	public function fetchAll() {
+		
+		// Use locale to set current store or use the default one
+		if (empty($this->storeId)) $this->storeId = Mage::app()->getStore()->getId();
+		Mage::app()->setCurrentStore($this->storeId);
+		
+		// Fetch our product
+		$products = Mage::getModel('catalog/product')->getCollection()->getData(); 
+		$productList = array();
+		foreach($products as $product) {
+			if ($product['type_id'] == 'simple') {
+				$prod = Mage::getModel('catalog/product')->load($product['entity_id']);
+				$store = Mage::getModel('core/store')->load($prod->getStoreId());
+				array_push($productList, array("name" => $prod->name, "description" => $prod->description, "sku" => $prod->sku, "currency" => $store->getCurrentCurrencyCode(), "image"=> $prod->getSmallImageUrl(), "price" => $prod->price));
+			}
+		}
+		
+		$this->data = $productList;
+	}
 	/**
 	* Get the JSON representation of this product
 	*

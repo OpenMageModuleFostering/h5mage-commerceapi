@@ -52,7 +52,13 @@ abstract class H5mag_ShopApi_Model_Product extends Mage_Core_Model_Abstract {
 	* @return void
 	*/
 	abstract public function fetch($id);
-	
+	/**
+	* Load the product.
+	*
+	* @param integer $id product ID
+	* @return void
+	*/
+	abstract public function fetchAll();
 	/**
 	* Get the JSON representation of this product
 	*

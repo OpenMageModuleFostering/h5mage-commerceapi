@@ -1,18 +1,20 @@
 <?xml version="1.0"?>
 <package>
     <name>h5mage-commerceapi</name>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <stability>stable</stability>
     <license uri="http://www.h5mag.com">Open Software License (OSL 3.0)</license>
     <channel>community</channel>
     <extends/>
     <summary>Connect your store with H5mag</summary>
     <description>Sell your products through your H5mag online magazine</description>
-    <notes>Reference API</notes>
+    <notes>Reference API&#xD;
+&#xD;
+Added API key and url validation</notes>
     <authors><author><name>H5mag</name><user>h5mag</user><email>info@h5mag.com</email></author></authors>
-    <date>2015-09-02</date>
-    <time>09:49:05</time>
-    <contents><target name="mageetc"><dir><dir name="modules"><file name="H5mag_ShopApi.xml" hash="a7f3540be0ca960e3c4342c97ff10611"/></dir></dir></target><target name="magecommunity"><dir><dir name="H5mag"><dir name="ShopApi"><dir name="Model"><file name="Generic.php" hash="7913f49f76747753b6cc001315150b4e"/><dir name="Order"><file name="Observer.php" hash="feeb4b145711fda6d0c62d7b8bda8ba7"/></dir><file name="Product.php" hash="2d02f892f12a774081072779e61e91a6"/></dir><dir name="controllers"><file name="CheckoutController.php" hash="703ee86056c7d5a5be99b8e856400046"/><file name="IndexController.php" hash="c1bef5e7e2dc9eb3fd1f13deeae73eda"/></dir><dir name="etc"><file name="adminhtml.xml" hash="4d5313c01a1c7eb331ec9e14b05de9a3"/><file name="config.xml" hash="49001110e909ff73da3765fb9e6195a7"/><file name="system.xml" hash="0e1e2da2b22ea05098ebd2138b201c23"/></dir></dir></dir></dir></target><target name="magedesign"><dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="template"><dir name="h5mag"><dir name="shopapi"><file name="emptycart.phtml" hash="d25f087f78a205332406373418880531"/></dir></dir></dir></dir></dir></dir></dir></target></contents>
+    <date>2015-09-15</date>
+    <time>14:45:39</time>
+    <contents><target name="mageetc"><dir><dir name="modules"><file name="H5mag_ShopApi.xml" hash="a7f3540be0ca960e3c4342c97ff10611"/></dir></dir></target><target name="magecommunity"><dir><dir name="H5mag"><dir name="ShopApi"><dir name="Model"><file name="Generic.php" hash="ee7230ea0371be754c017a4dbbe370d6"/><dir name="Order"><file name="Observer.php" hash="feeb4b145711fda6d0c62d7b8bda8ba7"/></dir><file name="Product.php" hash="711ce6b1c57e5781f43a812394303cb1"/></dir><dir name="controllers"><file name="CheckoutController.php" hash="703ee86056c7d5a5be99b8e856400046"/><file name="IndexController.php" hash="cf68fb47a4ffe82bf25aacec815c55f6"/></dir><dir name="etc"><file name="adminhtml.xml" hash="4d5313c01a1c7eb331ec9e14b05de9a3"/><file name="config.xml" hash="49001110e909ff73da3765fb9e6195a7"/><file name="system.xml" hash="751a05e3cd64d5dac4798e128d4cb3dc"/></dir></dir></dir></dir></target><target name="magedesign"><dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="template"><dir name="h5mag"><dir name="shopapi"><file name="emptycart.phtml" hash="d25f087f78a205332406373418880531"/></dir></dir></dir></dir></dir></dir></dir></target></contents>
     <compatible/>
     <dependencies><required><php><min>5.3.10</min><max>6.0.0</max></php></required></dependencies>
 </package>

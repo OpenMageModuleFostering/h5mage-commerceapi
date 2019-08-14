@@ -33,6 +33,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </url>
+                        <apikey translate="label comment">
+                            <label>API Key</label>
+                            <comment>H5mag magazine user API key</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apikey>
                     </fields>
                 </general>
             </groups>
