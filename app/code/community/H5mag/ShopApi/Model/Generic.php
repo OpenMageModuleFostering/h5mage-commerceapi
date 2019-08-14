@@ -87,7 +87,12 @@ class H5mag_ShopApi_Model_Generic extends H5mag_ShopApi_Model_Product {
 					$parentIds = Mage::getModel('catalog/product_type_configurable')->getParentIdsByChild($product->getId());
 			    if(isset($parentIds[0])){
 						$parent = Mage::getModel('catalog/product')->load($parentIds[0]);
-						$variants = Mage::getModel('catalog/product_type_configurable')->getUsedProducts(null, $parent);
+						$variants = Mage::getModel('catalog/product_type_configurable')->getUsedProducts(null,$parent);
+						$variants_list = array();
+						foreach($variants as $variant) {
+							array_push($variants_list, Mage::getModel('catalog/product')->load($variant->getId()));
+						}
+						$variants = $variants_list;
 					} else {
 						$variants[] = $product;
 					}
@@ -102,7 +107,8 @@ class H5mag_ShopApi_Model_Generic extends H5mag_ShopApi_Model_Product {
 				$data = array();
 				$data['currency'] = $store->getCurrentCurrencyCode();
 				$data['id'] = $variant->getSku(); // Send the SKU instead of the actual database id
-				$data['name'] = $variant->getName(); 
+				$data['name'] = $variant->getName();
+				var_dump($variant);
 				$data['price'] = $variant->getPrice() * 100; // H5mag uses cents
 				$data['pictures'] = array();
 				$data['stock'] = 0;
