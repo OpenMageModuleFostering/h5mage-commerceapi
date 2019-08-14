@@ -12,7 +12,7 @@
  * obtain it through the world-wide-web, please send an email
  * to license@h5mag.com so we can send you a copy immediately.
  *
- * @copyright   Copyright (c) 2013 H5mag Inc. (http://www.h5mag.com)
+ * @copyright   Copyright (c) 2015 H5mag Inc. (http://www.h5mag.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 

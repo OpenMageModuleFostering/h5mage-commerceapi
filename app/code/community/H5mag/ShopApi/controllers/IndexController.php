@@ -14,7 +14,7 @@
  *
  * @category    H5mag ShopApi
  * @package     H5mag_ShopApi
- * @copyright   Copyright (c) 2013 H5mag (http://www.h5mag.com)
+ * @copyright   Copyright (c) 2015 H5mag (http://www.h5mag.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class H5mag_ShopApi_IndexController extends Mage_Core_Controller_Front_Action {
@@ -40,7 +40,8 @@ class H5mag_ShopApi_IndexController extends Mage_Core_Controller_Front_Action {
 	private function send($data){
 		header('Content-Type: application/json; charset=utf-8');
 		header('Content-Length: '.strlen($data));
-		die($data);
+		echo ($data);
+		exit;
 	}
 	
 }

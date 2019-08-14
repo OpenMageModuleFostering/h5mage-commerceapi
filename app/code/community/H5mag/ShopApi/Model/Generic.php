@@ -12,7 +12,7 @@
  * obtain it through the world-wide-web, please send an email
  * to license@h5mag.com so we can send you a copy immediately.
  *
- * @copyright   Copyright (c) 2013 H5mag Inc. (http://www.h5mag.com)
+ * @copyright   Copyright (c) 2015 H5mag Inc. (http://www.h5mag.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,30 +69,18 @@ class H5mag_ShopApi_Model_Generic extends H5mag_ShopApi_Model_Product {
 		
 		if ($product->getId()) {
 			// Add product description to data
-			$this->data = array(
-				'id' => $product->getId(), 
-				'name' => $product->getName(), 
-				'text' => $product->getDescription(),
-			);
-			$this->data['locale'] = (!empty($this->locale)) ? $this->locale : Mage::app()->getStore()->getConfig('general/locale/code');
-
-			// Get variants of this product
+			
 			$variants = array();
+
 			if ($product->isConfigurable()) {
 				$variants = Mage::getModel('catalog/product_type_configurable')->getUsedProducts(null, $product);
-				$this->data['variants'] = array();
 			} else if ($product->getTypeId() == 'simple') {
-				$parentIds = Mage::getModel('catalog/product_type_grouped')->getParentIdsByChild($product->getId());
-				if(!$parentIds) {
+				$parentIds = Mage::getModel('catalog/product_type_grouped')->getParentIdsByChild($product->getTypeId);
+				if (empty($parentIds)) {
 					$parentIds = Mage::getModel('catalog/product_type_configurable')->getParentIdsByChild($product->getId());
-			    if(isset($parentIds[0])){
-						$parent = Mage::getModel('catalog/product')->load($parentIds[0]);
-						$variants = Mage::getModel('catalog/product_type_configurable')->getUsedProducts(null,$parent);
-						$variants_list = array();
-						foreach($variants as $variant) {
-							array_push($variants_list, Mage::getModel('catalog/product')->load($variant->getId()));
-						}
-						$variants = $variants_list;
+					if (isset($parentIds[0])) {
+						$product = Mage::getModel('catalog/product')->load($parentIds[0]);
+						$variants = Mage::getModel('catalog/product_type_configurable')->getUsedProducts(null,$product);       
 					} else {
 						$variants[] = $product;
 					}
@@ -100,16 +88,48 @@ class H5mag_ShopApi_Model_Generic extends H5mag_ShopApi_Model_Product {
 					$variants[] = $product;
 				}
 			}
+
+			$this->data = array(
+				'id' => $product->getId(), 
+				'name' => $product->getName(), 
+				'text' => $product->getDescription(),
+			);
+			$this->data['locale'] = (!empty($this->locale)) ? $this->locale : Mage::app()->getStore()->getConfig('general/locale/code');
+
 			
 			// Add variants to data
 			foreach ($variants as $variant) {
 				$store = Mage::getModel('core/store')->load($variant->getStoreId());
 				$data = array();
 				$data['currency'] = $store->getCurrentCurrencyCode();
-				$data['id'] = $variant->getSku(); // Send the SKU instead of the actual database id
-				$data['name'] = $variant->getName();
-				var_dump($variant);
-				$data['price'] = $variant->getPrice() * 100; // H5mag uses cents
+				$data['id'] = $variant->getSKU(); // Send the SKU instead of the actual database id
+				if ($product->isConfigurable()) {
+					if ($variant->getName() == null) {
+						$nameSuffix = '';
+						$productAttributeOptions = $product->getTypeInstance(true)->getConfigurableAttributesAsArray($product);
+						$attributeOptions = array();
+						foreach ($productAttributeOptions as $productAttribute) {
+					       $nameSuffix .= ' ' . $variant->getAttributeText(strtolower($productAttribute['label']));
+						}
+
+						$data['name'] = $product->getName() . $nameSuffix; 
+						$data['price'] = $product->getPrice() * 100;
+					} else {
+						$nameSuffix = '';
+						$nameSuffix = '';
+						$productAttributeOptions = $product->getTypeInstance(true)->getConfigurableAttributesAsArray($product);
+						$attributeOptions = array();
+						foreach ($productAttributeOptions as $productAttribute) {
+					       $nameSuffix .= ' ' . $variant->getAttributeText(strtolower($productAttribute['label']));
+						}
+						$data['name'] = $variant->getName() . $nameSuffix; 
+						$data['price'] = $variant->getPrice() * 100; // H5mag uses cents
+					}
+				} else {
+					$data['name'] = $variant->getName();
+					$data['price'] = $variant->getPrice() * 100;
+				}
+				
 				$data['pictures'] = array();
 				$data['stock'] = 0;
 				$data['available'] = false;
@@ -122,18 +142,14 @@ class H5mag_ShopApi_Model_Generic extends H5mag_ShopApi_Model_Product {
 				if ($image = $variant->getImageUrl()) $data['pictures'][] = $image;
 				if ($image = $variant->getSmallImageUrl()) $data['pictures'][] = $image; 
 				if ($image = $variant->getThumbnailUrl()) $data['pictures'][] = $image;
-			
-				// Optional properties 
-				// TODO: Move these to config.xml and make an admin panel where these can be configured
-				/*if ($variant->offsetExists('color') && $color = $variant->getAttributeText('color') ) {
-					$data['color'] = $color;
-				}
-				if ($variant->offsetExists('hexcolor') && $hex_color = $variant->getAttributeText('hexcolor') ) {
-					$data['display-color'] = "#{$hex_color}";
-				}*/
 				
 				if ($dimensions = $variant->getDimensions()) $data['dimensions'] = $dimensions;
-				$this->data['variants'][] = $data;
+				
+				if ($id == $variant->getId()) {
+					array_unshift($this->data['variants'], $data);
+				} else {
+					$this->data['variants'][] = $data;
+				}
 			}
 		}
 	}

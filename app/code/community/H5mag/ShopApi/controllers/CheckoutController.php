@@ -14,7 +14,7 @@
  *
  * @category    H5mag ShopApi
  * @package     H5mag_ShopApi
- * @copyright   Copyright (c) 2013 H5mag (http://www.h5mag.com)
+ * @copyright   Copyright (c) 2015 H5mag (http://www.h5mag.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
  class H5mag_ShopApi_CheckoutController extends Mage_Core_Controller_Front_Action {
@@ -42,10 +42,9 @@
 		// Update cart in session
 		if ($cart->getItemsCount() > 0) {
 			$empty_cart = $this->getRequest()->getParam('cart');
-			$url = strtolower(Mage::app()->getStore()->getConfig('h5mag_shopapi_magazine/general/url'));
-			if (preg_match('/^http:\/\//', $url) == false) $url = "http://{$url}";
-			if (preg_match('\/$') == false) $url .= '/';
-			Mage::getSingleton('core/session')->setH5magShopApiCartUrl("{$url}system/shop/empty-cart?cart={$empty_cart}");
+			$url = Mage::app()->getStore()->getConfig('h5mag_shopapi_magazine/general/url');
+			$url = rtrim($url, '/');
+			Mage::getSingleton('core/session')->setH5magShopApiCartUrl("{$url}/system/shop/empty-cart?cart={$empty_cart}");
 			$this->_redirect('checkout/cart');
 		} else {
 			echo 'Products out-of-stock.';
