@@ -17,19 +17,30 @@
  * @copyright   Copyright (c) 2015 H5mag (http://www.h5mag.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+
+/* 
+	hash_equals polyfill from:
+	http://php.net/manual/en/function.hash-equals.php#117101
+*/
+if(!function_exists('hash_equals')) {
+    function hash_equals($a, $b) {
+        $ret = strlen($a) ^ strlen($b);
+        $ret |= array_sum(unpack("C*", $a^$b));
+        return !$ret;
+    }
+}
+
 class H5mag_ShopApi_IndexController extends Mage_Core_Controller_Front_Action {
 	private function testHash($hash) {
+		
 		$previousHashTime = floor((time()-300)/300);
 		$currentHashTime = floor(time()/300);
 		$apiKey = Mage::app()->getStore()->getConfig('h5mag_shopapi_magazine/general/apikey');
-		$previousHash = sha1($apiKey . $previousHashTime);
-		$currentHash = sha1($apiKey . $currentHashTime);
-		if (strlen($currentHash) === strlen($hash) && $currentHash === $hash) {
-			return true;
-		} else if (strlen($previousHash) === strlen($hash) && $previousHash === $hash) {
-			return true;
-		}
-		return false;
+		$previousHash = sha1($apiKey . $previousHashTime . 'h5magsthesalt');
+		$currentHash = sha1($apiKey . $currentHashTime . 'h5magsthesalt');
+
+		return hash_equals($hash, $previousHash) || hash_equals($hash, $currentHash);
 	}
 	/**
 	* Get product and variants
